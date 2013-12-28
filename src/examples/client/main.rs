@@ -1,3 +1,5 @@
+#[crate_id = "client"];
+
 extern mod http;
 use http::client::RequestWriter;
 use http::method::Get;
@@ -48,5 +50,5 @@ fn make_and_print_request(url: ~str) {
     }
     println("[1mBody:[0m");
     let body = response.read_to_end();
-    println(str::from_utf8_slice(body));
+    println(str::from_utf8(body));
 }

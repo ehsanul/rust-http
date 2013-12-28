@@ -1,8 +1,4 @@
-#[link(name = "http",
-       package_id = "http",
-       vers = "0.1-pre",
-       uuid = "d2ad8df0-547a-4ce1-99c6-a9da3b98fb3e",
-       url = "https://github.com/chris-morgan/rust-http/tree/master/src/http")];
+#[crate_id = "http#0.1-pre"];
 
 #[comment = "Rust HTTP server"];
 #[license = "MIT/ASL2"];
@@ -27,4 +23,5 @@ pub mod rfc2616;
 pub mod status;  // Getting an error? It's generated; use ``make`` or see the ``Makefile``
 
 /// TODO: submit upstream
+#[cfg(test)]
 pub mod memstream;
