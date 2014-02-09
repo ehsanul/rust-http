@@ -2,7 +2,8 @@
 
 #[comment = "Rust HTTP server"];
 #[license = "MIT/ASL2"];
-#[crate_type = "lib"];
+#[crate_type = "dylib"];
+#[crate_type = "rlib"];
 
 #[deny(non_camel_case_types)];
 //#[deny(missing_doc)];
@@ -11,10 +12,12 @@
 #[macro_escape];
 
 extern mod extra;
+extern mod collections;
 
 pub mod buffer;
 pub mod client;
 pub mod common;
+pub mod connecter;
 pub mod server;
 pub mod method;
 pub mod headers;
