@@ -1,7 +1,7 @@
 RUSTC ?= rustc
 RUSTDOC ?= rustdoc
 RUSTPKG ?= rustpkg
-RUSTFLAGS ?= -O -Z debug-info
+RUSTFLAGS ?= -O
 RUST_REPOSITORY ?= ../rust
 RUST_CTAGS ?= $(RUST_REPOSITORY)/src/etc/ctags.rust
 VERSION=0.1-pre
@@ -38,7 +38,10 @@ build/codegen: $(codegen_files)
 	mkdir -p build/
 	$(RUSTC) src/codegen/main.rs --out-dir=build
 
-src/http/generated/%.rs: build/codegen
+src/http/generated:
+	mkdir -p src/http/generated
+
+src/http/generated/%.rs: build/codegen src/http/generated
 	build/codegen $(patsubst src/http/generated/%,%,$@) src/http/generated/
 
 build/%:: src/%/main.rs $(libhttp_so)

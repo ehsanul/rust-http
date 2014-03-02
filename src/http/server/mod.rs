@@ -1,9 +1,9 @@
-extern mod extra;
+extern crate extra;
 
-use std::comm::SharedChan;
+use std::comm::Chan;
 use std::io::{Listener, Acceptor};
 use std::io::net::ip::SocketAddr;
-use extra::time::precise_time_ns;
+use time::precise_time_ns;
 
 use std::io::net::tcp::TcpListener;
 
@@ -37,7 +37,7 @@ pub trait Server: Send + Clone {
             Ok(acceptor) => acceptor,
         };
         debug!("listening");
-        let (perf_po, perf_ch) = SharedChan::new();
+        let (perf_po, perf_ch) = Chan::new();
         spawn(proc() {
             perf_dumper(perf_po);
         });
