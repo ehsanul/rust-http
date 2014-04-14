@@ -13,7 +13,7 @@ pub enum RangeUnit {
 #[deriving(Clone,Eq)]
 // RFC 2616: acceptable-ranges = 1#range-unit | "none"
 pub enum AcceptableRanges {
-    RangeUnits(~[RangeUnit]),
+    RangeUnits(Vec<RangeUnit>),
     NoAcceptableRanges,
 }
 
@@ -23,7 +23,7 @@ static BYTES: &'static [u8] = bytes!("bytes");
 impl super::HeaderConvertible for AcceptableRanges {
     fn from_stream<R: Reader>(reader: &mut super::HeaderValueByteIterator<R>)
             -> Option<AcceptableRanges> {
-        let mut range_units = ~[];
+        let mut range_units = Vec::new();
         loop {
             match reader.read_token() {
                 Some(token) => {

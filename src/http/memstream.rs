@@ -44,7 +44,7 @@ impl Reader for MemWriterFakeStream {
 pub struct MemReaderFakeStream(MemReader);
 
 impl MemReaderFakeStream {
-    pub fn new(buf: ~[u8]) -> MemReaderFakeStream { MemReaderFakeStream(MemReader::new(buf)) }
+    pub fn new(buf: Vec<u8>) -> MemReaderFakeStream { MemReaderFakeStream(MemReader::new(buf)) }
 }
 
 impl Reader for MemReaderFakeStream {
@@ -92,20 +92,20 @@ mod test {
 
     #[test]
     fn test_mem_reader_fake_stream() {
-        let mut reader = MemReaderFakeStream::new(~[0, 1, 2, 3, 4, 5, 6, 7]);
-        let mut buf = [];
+        let mut reader = MemReaderFakeStream::new(vec![0, 1, 2, 3, 4, 5, 6, 7]);
+        let mut buf = ~[];
         assert_eq!(reader.read(buf),      Ok(0));
         assert_eq!(reader.tell(),         Ok(0));
-        let mut buf = [0];
+        let mut buf = ~[0];
         assert_eq!(reader.read(buf),      Ok(1));
         assert_eq!(reader.tell(),         Ok(1));
-        assert_eq!(buf,                   [0]);
-        let mut buf = [0, ..4];
+        assert_eq!(buf,                   ~[0]);
+        let mut buf = ~[0, 0, 0, 0];
         assert_eq!(reader.read(buf),      Ok(4));
         assert_eq!(reader.tell(),         Ok(5));
-        assert_eq!(buf,                   [1, 2, 3, 4]);
+        assert_eq!(buf,                   ~[1, 2, 3, 4]);
         assert_eq!(reader.read(buf),      Ok(3));
-        assert_eq!(buf.slice(0, 3),       [5, 6, 7]);
+        assert_eq!(buf.slice(0, 3),       &[5, 6, 7]);
         assert_eq!(reader.read(buf).ok(), None);
     }
 }

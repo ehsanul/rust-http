@@ -1,8 +1,7 @@
 //! A very simple HTTP server which responds with the plain text "Hello, World!" to every request.
 
-#[crate_id = "hello_world"];
+#![crate_id = "hello_world"]
 
-extern crate extra;
 extern crate time;
 extern crate http;
 
@@ -26,7 +25,7 @@ impl Server for HelloWorldServer {
         w.headers.content_type = Some(MediaType {
             type_: ~"text",
             subtype: ~"plain",
-            parameters: ~[(~"charset", ~"UTF-8")]
+            parameters: vec!((~"charset", ~"UTF-8"))
         });
         w.headers.server = Some(~"Example");
 

@@ -1,9 +1,9 @@
-#[macro_escape];
+#![macro_escape]
 
 use std::str::Chars;
 use std::io::IoResult;
 
-struct ParseBranch {
+pub struct ParseBranch {
     matches: ~[u8],
     result: Option<~str>,
     children: ~[ParseBranch],

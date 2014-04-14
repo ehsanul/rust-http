@@ -13,7 +13,7 @@ use headers::serialization_utils::{WriterUtil, push_parameters};
 #[deriving(Clone,Eq)]
 pub enum TransferCoding {
     Chunked,
-    TransferExtension(~str, ~[(~str, ~str)]),
+    TransferExtension(~str, Vec<(~str, ~str)>),
 }
 
 impl super::CommaListHeaderConvertible for TransferCoding {}
@@ -42,7 +42,7 @@ impl super::HeaderConvertible for TransferCoding {
             Chunked => writer.write(bytes!("chunked")),
             TransferExtension(ref token, ref parameters) => {
                 try!(writer.write_token(*token));
-                writer.write_parameters(*parameters)
+                writer.write_parameters(parameters.as_slice())
             }
         }
     }
@@ -52,7 +52,7 @@ impl super::HeaderConvertible for TransferCoding {
             Chunked => ~"chunked",
             TransferExtension(ref token, ref parameters) => {
                 let out = token.to_owned();
-                push_parameters(out, *parameters)
+                push_parameters(out, parameters.as_slice())
             }
         }
     }
